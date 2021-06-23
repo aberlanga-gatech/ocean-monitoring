@@ -1,7 +1,6 @@
 // this file is taken from the previous
 // it shows added functionality with sensors and stuff
-// do not complain on my version control
-// this is not version control, it's a narrative course
+// read files one through three for context
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>

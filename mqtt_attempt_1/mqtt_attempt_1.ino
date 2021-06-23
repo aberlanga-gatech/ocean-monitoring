@@ -1,5 +1,6 @@
 /* Made by Alfredo Berlanga
  * alfredo@propelland.com
+ * DEPRECATED - FIRST FILE - OBSOLETE
  * Simple code based on the tutorial at https://www.digikey.com/en/maker/blogs/2018/how-to-use-basic-mqtt-on-arduino
  * Basic environment setup for a Arduino-EthernetShield MQTT system that sends a simple message on a single topic
  * All server domains and addresses are placeholders

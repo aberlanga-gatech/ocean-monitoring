@@ -91,10 +91,10 @@ void setup()
 {
     // pins configs
     pinMode(BUILTIN_LED, OUTPUT);
-    Serial.begin(115200);                // common value for NodeMCU
-    setup_wifi();                        // setup wifi connection (internet link)
-    client.setServer(mqtt_server, 1883); // server address, port
-    client.setCallback(callback);        // ref to callback() func (on_message equiv.)
+    Serial.begin(115200);                     // common value for NodeMCU
+    setup_wifi();                             // setup wifi connection (internet link)
+    client.setServer(mqtt_server, mqtt_port); // server address, port
+    client.setCallback(callback);             // ref to callback() func (on_message equiv.)
 }
 
 void loop()

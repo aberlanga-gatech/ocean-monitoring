@@ -1,3 +1,13 @@
+/**
+ * @file rng_sender.ino
+ * @author Alfredo Berlanga (alfredo@propelland.com)
+ * @brief RNG number sender using MQTT protocol
+ * @version 1.0
+ * @date 2021-06-30
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #include <WiFi.h>
 #include <PubSubClient.h>
 
@@ -70,12 +80,12 @@ void reconnect()
         String clientID = "ESP_Client_";
         clientID += String(random(0xffff), HEX);
         // attempts do connect
-        if (client.connect(clientID.c_str()))
+        if (client.connect(clientID.c_str(), mqtt_user, mqtt_pwd))
         {
             Serial.println("Connected");
             // publish connection method to placeholder topic
             client.publish(mainTopic, "TESTING CONNECTION");
-            client.subscribe("inPHold_Topic");
+            client.subscribe(mainTopic);
         }
         else
         {
@@ -89,8 +99,7 @@ void reconnect()
 
 void setup()
 {
-    // pins configs
-    pinMode(BUILTIN_LED, OUTPUT);
+    pinMode(BUILTIN_LED, OUTPUT);             // config builtin esp32 led
     Serial.begin(115200);                     // common value for NodeMCU
     setup_wifi();                             // setup wifi connection (internet link)
     client.setServer(mqtt_server, mqtt_port); // server address, port
@@ -103,10 +112,10 @@ void loop()
     {
         reconnect(); // perform reconnect loop
     }
-    client.loop(); // perform this function on mcu client (a lil recursion) in case of failure
     toSend = String(random(300));
     toSend.toCharArray(buf, 3);
     Serial.print("Publishing message: ");
     Serial.println(toSend);         // display what message is to be published
     client.publish(mainTopic, buf); // publish to the placeholder topic
+    client.loop();                  // perform this function on mcu client (a lil recursion) in case of failure
 }

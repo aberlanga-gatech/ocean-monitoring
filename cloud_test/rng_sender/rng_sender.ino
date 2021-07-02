@@ -117,3 +117,4 @@ void loop()
         Serial.println(toSend);         // display what message is to be published
         client.publish(mainTopic, buf); // publish to the placeholder topic
     }
+}

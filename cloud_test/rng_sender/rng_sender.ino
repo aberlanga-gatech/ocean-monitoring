@@ -3,8 +3,8 @@
 #include <PubSubClient.h>
 
 // WiFi connection
-const char *ssid = "Chato1";
-const char *password = "ChatoBubu";
+const char *ssid = "placehold";
+const char *password = "placehold";
 
 // MQTT server stuff
 const char *mqtt_server = "driver.cloudmqtt.com";
@@ -13,6 +13,9 @@ const char *mqtt_user = "lvumygpt";
 const char *mqtt_pass = "JyCVNlyqGHQf";
 
 const char *mainTopic = "Main_Topic";
+const char *controlTopic = "control_topic";
+
+boolean state = true;
 
 // Wifi globals
 WiFiClient espClient;
@@ -60,6 +63,18 @@ void callback(char *topic, byte *payload, unsigned int length)
     Serial.println();
 
     String topicStr(topic);
+
+    if (topicStr.equals(controlTopic))
+    {
+        if (incoming == "0")
+        {
+            state = false;
+        }
+        if (incoming == "1")
+        {
+            state = true;
+        }
+    }
 }
 
 void reconnect()
@@ -78,7 +93,7 @@ void reconnect()
             Serial.println("Connected");
             // publish connection method to placeholder topic
             client.publish("xd", "TESTING CONNECTION");
-            client.subscribe("inPHold_Topic");
+            client.subscribe(controlTopic);
         }
         else
         {
@@ -107,14 +122,16 @@ void loop()
     }
     client.loop(); // perform this function on mcu client (a lil recursion) in case of failure
 
-    unsigned long now = millis();
-
     toSend = String(random(300));
     toSend.toCharArray(buf, 3);
-    if (now - lastMsg > 2000)
+    if (state)
     {
-        Serial.print("Publishing message: ");
-        Serial.println(toSend);         // display what message is to be published
-        client.publish(mainTopic, buf); // publish to the placeholder topic
+        if (millis() - lastMsg > 2000)
+        {
+            lastMsg = millis();
+            Serial.print("Publishing message: ");
+            Serial.println(toSend);         // display what message is to be published
+            client.publish(mainTopic, buf); // publish to the placeholder topic
+        }
     }
 }

@@ -3,12 +3,12 @@
 #include <PubSubClient.h>
 
 // WiFi connection
-const char *ssid = "Chato1";
-const char *password = "ChatoBubu";
+const char *ssid = "placeHolder";
+const char *password = "PlaceHolder";
 
 // MQTT server stuff
 const char *mqtt_server = "driver.cloudmqtt.com";
-const int   mqtt_port = 18678;
+const int mqtt_port = 18678;
 const char *mqtt_user = "lvumygpt";
 const char *mqtt_pass = "JyCVNlyqGHQf";
 
@@ -72,7 +72,7 @@ void reconnect()
         String clientID = "ESP_Client_";
         clientID += String(random(0xffff), HEX);
 
-        if (client.connect(clientID.c_str(),mqtt_user,mqtt_pass))
+        if (client.connect(clientID.c_str(), mqtt_user, mqtt_pass))
         {
             Serial.println("Connected");
             // publish connection method to placeholder topic
@@ -92,10 +92,10 @@ void reconnect()
 void setup()
 {
     // pins configs
-    Serial.begin(115200);                // common value for NodeMCU
-    setup_wifi();                        // setup wifi connection (internet link)
+    Serial.begin(115200);                     // common value for NodeMCU
+    setup_wifi();                             // setup wifi connection (internet link)
     client.setServer(mqtt_server, mqtt_port); // server address, port
-    client.setCallback(callback);        // ref to callback() func (on_message equiv.)
+    client.setCallback(callback);             // ref to callback() func (on_message equiv.)
 }
 
 void loop()

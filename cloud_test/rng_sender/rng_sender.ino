@@ -19,6 +19,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 // Message globals
+unsigned long lastMsg = 0;
 String toSend;
 char buf[3];
 
@@ -105,9 +106,14 @@ void loop()
         reconnect(); // perform reconnect loop
     }
     client.loop(); // perform this function on mcu client (a lil recursion) in case of failure
+
+    unsigned long now = millis();
+
     toSend = String(random(300));
     toSend.toCharArray(buf, 3);
-    Serial.print("Publishing message: ");
-    Serial.println(toSend);         // display what message is to be published
-    client.publish(mainTopic, buf); // publish to the placeholder topic
-}
+    if (now - lastMsg > 2000)
+    {
+        Serial.print("Publishing message: ");
+        Serial.println(toSend);         // display what message is to be published
+        client.publish(mainTopic, buf); // publish to the placeholder topic
+    }

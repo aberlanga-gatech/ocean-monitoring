@@ -1,25 +1,17 @@
-/**
- * @file rng_sender.ino
- * @author Alfredo Berlanga (alfredo@propelland.com)
- * @brief RNG number sender using MQTT protocol
- * @version 1.0
- * @date 2021-06-30
- * 
- * @copyright Copyright (c) 2021
- * 
- */
+#include <Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
 
 // WiFi connection
-const char *ssid = "ssid_name";
-const char *password = "password";
+const char *ssid = "Chato1";
+const char *password = "ChatoBubu";
 
 // MQTT server stuff
 const char *mqtt_server = "driver.cloudmqtt.com";
-const int mqtt_port = 18678;
+const int   mqtt_port = 18678;
 const char *mqtt_user = "lvumygpt";
-const char *mqtt_pwd = "JyCVNlyqGHQf";
+const char *mqtt_pass = "JyCVNlyqGHQf";
+
 const char *mainTopic = "Main_Topic";
 
 // Wifi globals
@@ -76,16 +68,16 @@ void reconnect()
     while (!client.connected())
     {
         Serial.println("Attempting to connect to MQTT broker");
-        // generate random client ID to keep trying with different aliases
+
         String clientID = "ESP_Client_";
         clientID += String(random(0xffff), HEX);
-        // attempts do connect
-        if (client.connect(clientID.c_str(), mqtt_user, mqtt_pwd))
+
+        if (client.connect(clientID.c_str(),mqtt_user,mqtt_pass))
         {
             Serial.println("Connected");
             // publish connection method to placeholder topic
-            client.publish(mainTopic, "TESTING CONNECTION");
-            client.subscribe(mainTopic);
+            client.publish("xd", "TESTING CONNECTION");
+            client.subscribe("inPHold_Topic");
         }
         else
         {
@@ -99,11 +91,11 @@ void reconnect()
 
 void setup()
 {
-    pinMode(BUILTIN_LED, OUTPUT);             // config builtin esp32 led
-    Serial.begin(115200);                     // common value for NodeMCU
-    setup_wifi();                             // setup wifi connection (internet link)
+    // pins configs
+    Serial.begin(115200);                // common value for NodeMCU
+    setup_wifi();                        // setup wifi connection (internet link)
     client.setServer(mqtt_server, mqtt_port); // server address, port
-    client.setCallback(callback);             // ref to callback() func (on_message equiv.)
+    client.setCallback(callback);        // ref to callback() func (on_message equiv.)
 }
 
 void loop()
@@ -112,10 +104,10 @@ void loop()
     {
         reconnect(); // perform reconnect loop
     }
+    client.loop(); // perform this function on mcu client (a lil recursion) in case of failure
     toSend = String(random(300));
     toSend.toCharArray(buf, 3);
     Serial.print("Publishing message: ");
     Serial.println(toSend);         // display what message is to be published
     client.publish(mainTopic, buf); // publish to the placeholder topic
-    client.loop();                  // perform this function on mcu client (a lil recursion) in case of failure
 }

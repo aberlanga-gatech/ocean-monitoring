@@ -54,7 +54,9 @@
 
 			function onMessageArrived(message) {
 				console.log("Un mensaje ha llegado:" + message.payloadString);
-				dataStream.push(message.payloadString);
+				if (message.destinationName == main_topic) {
+					dataStream.push(message.payloadString);
+				}
 				$("#display").html(message.payloadString);
 			}
 

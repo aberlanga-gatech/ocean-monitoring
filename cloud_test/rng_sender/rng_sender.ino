@@ -3,8 +3,8 @@
 #include <PubSubClient.h>
 
 // WiFi connection
-const char *ssid = "placehold";
-const char *password = "placehold";
+const char *ssid = "phold";
+const char *password = "phold";
 
 // MQTT server stuff
 const char *mqtt_server = "driver.cloudmqtt.com";

@@ -10,6 +10,7 @@
 
 		<div id="display">Text Here</div>
 		<div id="status">Offline</div>
+		<div id="stream">Stream:</div>
 
 		<button onclick="command(1)" type="button">Turn on</button>
 		<button onclick="command(0)" type="button">Turn off</button>
@@ -27,6 +28,7 @@
 			const mqtt_pwd = "JyCVNlyqGHQf";
 			const main_topic = "Main_Topic";
 			const control_topic = "control_topic";
+			const dataStream = [];
 
 			var clientId = "client_id_" + Math.floor(Math.random() * 1000000 + 1);
 			client = new Paho.MQTT.Client(mqtt_server, mqtt_port, clientId);
@@ -52,6 +54,9 @@
 
 			function onMessageArrived(message) {
 				console.log("Un mensaje ha llegado:" + message.payloadString);
+				if (message.destinationName == main_topic) {
+					dataStream.push(message.payloadString);
+				}
 				$("#display").html(message.payloadString);
 			}
 

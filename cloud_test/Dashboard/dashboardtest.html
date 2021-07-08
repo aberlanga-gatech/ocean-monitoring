@@ -21,7 +21,14 @@
 			type="text/javascript"
 		></script>
 
+		<!-- chart script and div -->
+		<script type="text/javascript" src="rt_chart.js"></script>
+		<div id="chartContainer" style="height: 370px; width: 100%"></div>
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+		<!-- main driver script DO NOT MODIFY -->
 		<script type="text/javascript">
+			//import { updateChart } from "rt_chart.js";
 			const mqtt_server = "driver.cloudmqtt.com";
 			const mqtt_port = 38678;
 			const mqtt_user = "lvumygpt";
@@ -58,6 +65,7 @@
 					dataStream.push(message.payloadString);
 				}
 				$("#display").html(message.payloadString);
+				updateChart(1, message.payloadString);
 			}
 
 			function doFail(e) {

@@ -4,7 +4,7 @@
 
 // WiFi connection
 const char *ssid = "Chato1";
-const char *password = "ChatoBubu";
+const char *password = "ChatoBubu1";
 
 // MQTT server stuff
 const char *mqtt_server = "driver.cloudmqtt.com";
@@ -86,7 +86,7 @@ void reconnect()
         Serial.println("Attempting to connect to MQTT broker");
 
         String clientID = "ESP_Client_";
-        clientID += String(random(0xffff), HEX);
+        clientID += 6;  //String(random(0xffff), HEX);
 
         if (client.connect(clientID.c_str(), mqtt_user, mqtt_pass))
         {

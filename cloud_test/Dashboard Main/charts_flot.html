@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Ocean Monitoring Station</title>
+
+		<!-- Google Font: Source Sans Pro -->
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+		/>
+
+		<!-- Theme style -->
+		<link rel="stylesheet" href="../Dashboard Main/dist/css/adminlte.min.css" />
+	</head>
+	<body>
+		<div class="wrapper">
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-4">
+								<h1>Monitoring Station</h1>
+							</div>
+							<div class="col-sm-4">
+								Real time control:
+								<div class="btn-group" id="realtime" data-toggle="btn-toggle">
+									<button
+										type="button"
+										class="btn btn-default btn-sm active"
+										data-toggle="on"
+									>
+										On
+									</button>
+									<button
+										type="button"
+										class="btn btn-default btn-sm"
+										data-toggle="off"
+									>
+										Off
+									</button>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<ol class="breadcrumb float-sm-right">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active">Charts</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-6">
+								<!-- interactive chart -->
+								<div class="card card-primary card-outline">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="far fa-chart-bar"></i>
+											Pressure Probe Chart
+										</h3>
+
+										<div class="card-tools">
+											<!--
+											Real time
+											<div
+												class="btn-group"
+												id="realtime"
+												data-toggle="btn-toggle"
+											>
+												<button
+													type="button"
+													class="btn btn-default btn-sm active"
+													data-toggle="on"
+												>
+													On
+												</button>
+												<button
+													type="button"
+													class="btn btn-default btn-sm"
+													data-toggle="off"
+												>
+													Off
+												</button>
+											</div>
+										-->
+										</div>
+									</div>
+									<div class="card-body">
+										<div id="interactive1" style="height: 300px"></div>
+									</div>
+									<!-- /.card-body-->
+								</div>
+								<!-- /.card -->
+
+								<!-- Area chart -->
+								<!-- interactive chart -->
+								<div class="card card-primary card-outline">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="far fa-chart-bar"></i>
+											Water PH Chart
+										</h3>
+
+										<div class="card-tools">
+											<!--
+											Real time
+											<div
+												class="btn-group"
+												id="realtime"
+												data-toggle="btn-toggle"
+											>
+												<button
+													type="button"
+													class="btn btn-default btn-sm active"
+													data-toggle="on"
+												>
+													On
+												</button>
+												<button
+													type="button"
+													class="btn btn-default btn-sm"
+													data-toggle="off"
+												>
+													Off
+												</button>
+											</div>
+										-->
+										</div>
+									</div>
+									<div class="card-body">
+										<div id="interactive2" style="height: 300px"></div>
+									</div>
+									<!-- /.card-body-->
+								</div>
+								<!-- /.card -->
+							</div>
+							<!-- /.col -->
+
+							<div class="col-md-6">
+								<!-- interactive chart -->
+								<div class="card card-primary card-outline">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="far fa-chart-bar"></i>
+											Temperature Probe Chart
+										</h3>
+
+										<div class="card-tools">
+											<!--
+											Real time
+											<div
+												class="btn-group"
+												id="realtime"
+												data-toggle="btn-toggle"
+											>
+												<button
+													type="button"
+													class="btn btn-default btn-sm active"
+													data-toggle="on"
+												>
+													On
+												</button>
+												<button
+													type="button"
+													class="btn btn-default btn-sm"
+													data-toggle="off"
+												>
+													Off
+												</button>
+											</div>
+										-->
+										</div>
+									</div>
+									<div class="card-body">
+										<div id="interactive3" style="height: 300px"></div>
+									</div>
+									<!-- /.card-body-->
+								</div>
+								<!-- /.card -->
+
+								<!-- Area chart -->
+								<!-- interactive chart -->
+								<div class="card card-primary card-outline">
+									<div class="card-header">
+										<h3 class="card-title">
+											<i class="far fa-chart-bar"></i>
+											Interactive Area Chart
+										</h3>
+
+										<div class="card-tools">
+											<!--
+											Real time
+											<div
+												class="btn-group"
+												id="realtime"
+												data-toggle="btn-toggle"
+											>
+												<button
+													type="button"
+													class="btn btn-default btn-sm active"
+													data-toggle="on"
+												>
+													On
+												</button>
+												<button
+													type="button"
+													class="btn btn-default btn-sm"
+													data-toggle="off"
+												>
+													Off
+												</button>
+											</div>
+										-->
+										</div>
+									</div>
+									<div class="card-body">
+										<div id="interactive4" style="height: 300px"></div>
+									</div>
+									<!-- /.card-body-->
+								</div>
+								<!-- /.card -->
+							</div>
+							<!-- /.col -->
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.container-fluid -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.content-wrapper -->
+		</div>
+
+		<!-- jQuery -->
+		<script src="../Dashboard Main/plugins/jquery/jquery.min.js"></script>
+		<!-- Bootstrap 4 -->
+		<script src="../Dashboard Main/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="../Dashboard Main/dist/js/adminlte.min.js"></script>
+		<!-- FLOT CHARTS -->
+		<script src="../Dashboard Main/plugins/flot/jquery.flot.js"></script>
+		<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+		<script src="../Dashboard Main/plugins/flot/plugins/jquery.flot.resize.js"></script>
+		<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+		<script src="../Dashboard Main/plugins/flot/plugins/jquery.flot.pie.js"></script>
+		<!-- AdminLTE for demo purposes -->
+		<script src="../Dashboard Main/dist/js/demo.js"></script>
+		<script>
+			$(function () {
+				/*
+				 * Flot Interactive Chart
+				 * -----------------------
+				 */
+				// We use an inline data source in the example, usually data would
+				// be fetched from a server
+
+				var data = [],
+					totalPoints = 100;
+
+				function getRandomData() {
+					if (data.length > 0) {
+						data = data.slice(1);
+					}
+
+					// Do a random walk
+					while (data.length < totalPoints) {
+						var prev = data.length > 0 ? data[data.length - 1] : 50,
+							y = prev + Math.random() * 10 - 5;
+
+						if (y < 0) {
+							y = 0;
+						} else if (y > 100) {
+							y = 100;
+						}
+
+						data.push(y);
+					}
+
+					// Zip the generated y values with the x values
+					var res = [];
+					for (var i = 0; i < data.length; ++i) {
+						res.push([i, data[i]]);
+					}
+
+					return res;
+				}
+
+				var interactive_plot1 = $.plot(
+					"#interactive1",
+					[
+						{
+							data: getRandomData(),
+						},
+					],
+					{
+						grid: {
+							borderColor: "#f3f3f3",
+							borderWidth: 1,
+							tickColor: "#f3f3f3",
+						},
+						series: {
+							color: "#3aadbc",
+							lines: {
+								lineWidth: 2,
+								show: true,
+								fill: true,
+							},
+						},
+						yaxis: {
+							min: 0,
+							max: 100,
+							show: true,
+						},
+						xaxis: {
+							show: true,
+						},
+					}
+				);
+
+				var interactive_plot2 = $.plot(
+					"#interactive2",
+					[
+						{
+							data: getRandomData(),
+						},
+					],
+					{
+						grid: {
+							borderColor: "#f3f3f3",
+							borderWidth: 1,
+							tickColor: "#f3f3f3",
+						},
+						series: {
+							color: "#ffadbc",
+							lines: {
+								lineWidth: 2,
+								show: true,
+								fill: true,
+							},
+						},
+						yaxis: {
+							min: 0,
+							max: 100,
+							show: true,
+						},
+						xaxis: {
+							show: true,
+						},
+					}
+				);
+
+				var interactive_plot3 = $.plot(
+					"#interactive3",
+					[
+						{
+							data: getRandomData(),
+						},
+					],
+					{
+						grid: {
+							borderColor: "#f3f3f3",
+							borderWidth: 1,
+							tickColor: "#f3f3f3",
+						},
+						series: {
+							color: "#008fbf",
+							lines: {
+								lineWidth: 2,
+								show: true,
+								fill: true,
+							},
+						},
+						yaxis: {
+							min: 0,
+							max: 100,
+							show: true,
+						},
+						xaxis: {
+							show: true,
+						},
+					}
+				);
+
+				var interactive_plot4 = $.plot(
+					"#interactive4",
+					[
+						{
+							data: getRandomData(),
+						},
+					],
+					{
+						grid: {
+							borderColor: "#f3f3f3",
+							borderWidth: 1,
+							tickColor: "#f3f3f3",
+						},
+						series: {
+							color: "#3cffbc",
+							lines: {
+								lineWidth: 2,
+								show: true,
+								fill: true,
+							},
+						},
+						yaxis: {
+							min: 0,
+							max: 100,
+							show: true,
+						},
+						xaxis: {
+							show: true,
+						},
+					}
+				);
+
+				var myCharts = [
+					interactive_plot1,
+					interactive_plot2,
+					interactive_plot3,
+					interactive_plot4,
+				];
+
+				var updateInterval = 500; //Fetch data ever x milliseconds
+				var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
+				function update() {
+					for (var k = 0; k < myCharts.length; k++) {
+						myCharts[k].setData([getRandomData()]);
+
+						// Since the axes don't change, we don't need to call plot.setupGrid()
+						myCharts[k].draw();
+					}
+					if (realtime === "on") {
+						setTimeout(update, updateInterval);
+					}
+				}
+
+				//INITIALIZE REALTIME DATA FETCHING
+				if (realtime === "on") {
+					update();
+				}
+				//REALTIME TOGGLE
+				$("#realtime .btn").click(function () {
+					if ($(this).data("toggle") === "on") {
+						realtime = "on";
+					} else {
+						realtime = "off";
+					}
+					update();
+				});
+
+				/*
+				 * Custom Label formatter
+				 * ----------------------
+				 */
+				function labelFormatter(label, series) {
+					return (
+						'<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">' +
+						label +
+						"<br>" +
+						Math.round(series.percent) +
+						"%</div>"
+					);
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+		/>
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<canvas id="chart1"></canvas>
+		</div>
+
+		<button
+			type="button"
+			class="btn btn-primary"
+			onclick="addData(chart1, count++, getRandomInt(3, 7)), dataStream = true"
+		>
+			Add Datatset
+		</button>
+
+		<button
+			type="button"
+			class="btn btn-danger"
+			onclick="removeData(chart1), count > 0 ? count-- : null, dataStream = false"
+		>
+			Remove Dataset
+		</button>
+
+		<script>
+			// data point counter
+			var count = 0;
+
+			// toggle data stream
+			var dataStream = true;
+
+			// random int [min, max]
+			function getRandomInt(min, max) {
+				min = Math.ceil(min);
+				max = Math.floor(max);
+				return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+			}
+
+			// setup initialization
+			const labels = [];
+			const data = {
+				labels: labels,
+				datasets: [
+					{
+						label: "My First dataset",
+						backgroundColor: "rgb(255, 99, 132)",
+						borderColor: "rgb(255, 99, 132)",
+						data: [],
+					},
+				],
+			};
+
+			// configuration of chart
+			const config = {
+				type: "line",
+				data,
+				options: {},
+			};
+
+			// add data function
+			function addData(chart, label, data) {
+				chart.data.labels.push(label);
+				chart.data.datasets.forEach((dataset) => {
+					dataset.data.push(data);
+				});
+				chart.update();
+			}
+
+			// remove last datapoint
+			function removeData(chart) {
+				chart.data.labels.pop();
+				chart.data.datasets.forEach((dataset) => {
+					dataset.data.pop();
+				});
+				chart.update();
+			}
+
+			//chart variable start
+			var chart1 = new Chart(document.getElementById("chart1"), config);
+			var chart2 = new Chart(document.getElementById("chart1"), config);
+			var chart3 = new Chart(document.getElementById("chart1"), config);
+			var chart4 = new Chart(document.getElementById("chart1"), config);
+		</script>
+	</body>
+</html>

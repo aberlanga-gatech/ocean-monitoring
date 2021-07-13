@@ -254,7 +254,7 @@
 		<script src="../Dashboard Main/plugins/flot/plugins/jquery.flot.pie.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="../Dashboard Main/dist/js/demo.js"></script>
-		
+
 		<!-- Modified script for 4 interactive (real time) charts-->
 		<script>
 			$(function () {
@@ -296,6 +296,7 @@
 					return res;
 				}
 
+				// maybe try to instantiate these or make them dynamically programmed (interactive plot generator maybe?)
 				var interactive_plot1 = $.plot(
 					"#interactive1",
 					[
@@ -424,6 +425,7 @@
 					}
 				);
 
+				// collection of all 4 chart objects(?)
 				var myCharts = [
 					interactive_plot1,
 					interactive_plot2,
@@ -433,7 +435,10 @@
 
 				var updateInterval = 500; //Fetch data ever x milliseconds
 				var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
+
+				// clicking the on button too many times speeds up the code because the loop gets interrupted
 				function update() {
+					// reworking the update function could be in order?
 					for (var k = 0; k < myCharts.length; k++) {
 						myCharts[k].setData([getRandomData()]);
 

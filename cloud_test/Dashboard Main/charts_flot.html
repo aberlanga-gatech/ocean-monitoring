@@ -297,7 +297,7 @@
 					return res;
 				}
 
-				// maybe try to instantiate these or make them dynamically programmed (interactive plot generator maybe?)
+				// "objects" of the plots
 				var interactive_plot1 = $.plot(
 					"#interactive1",
 					[
@@ -438,14 +438,19 @@
 				var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
 
 				// clicking the on button too many times speeds up the code because the loop gets interrupted
+				// se puede modificar la funcion para que sea de referencia? tipo this.update() y llamarla desde los interactive_plots
 				function update() {
 					// reworking the update function could be in order?
 					for (var k = 0; k < myCharts.length; k++) {
+						// setData(from data source?) -- i dont know jquery or js
 						myCharts[k].setData([getRandomData()]);
+						// proposition: this.setData(source);
 
 						// Since the axes don't change, we don't need to call plot.setupGrid()
 						myCharts[k].draw();
+						// proposition: this.draw();
 					}
+
 					if (realtime === "on") {
 						setTimeout(update, updateInterval);
 					}
@@ -454,7 +459,9 @@
 				//INITIALIZE REALTIME DATA FETCHING
 				if (realtime === "on") {
 					update();
+					// proposition: call interactive_chart1.update()... etc
 				}
+
 				//REALTIME TOGGLE
 				$("#realtime .btn").click(function () {
 					if ($(this).data("toggle") === "on") {

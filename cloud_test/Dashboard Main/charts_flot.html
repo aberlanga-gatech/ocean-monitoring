@@ -265,12 +265,17 @@
 				// We use an inline data source in the example, usually data would
 				// be fetched from a server
 
-				var data = [],
-					totalPoints = 100;
-
+				//				var data = [],
+				var totalPoints = 100;
+				var myDatas = [];
+				myDatas[0] = [];
+				myDatas[1] = [];
+				myDatas[2] = [];
+				myDatas[3] = [];
 				// function will be rendered obsolete after data sources are collected
-				function getRandomData() {
-					if (data.length > 0) {
+				function getRandomData(d) {
+					var data = myDatas[d];
+					if (data.length >= 0) {
 						data = data.slice(1);
 					}
 
@@ -302,7 +307,7 @@
 					"#interactive1",
 					[
 						{
-							data: getRandomData(),
+							data: getRandomData(0),
 						},
 					],
 					{
@@ -334,7 +339,7 @@
 					"#interactive2",
 					[
 						{
-							data: getRandomData(),
+							data: getRandomData(1),
 						},
 					],
 					{
@@ -366,7 +371,7 @@
 					"#interactive3",
 					[
 						{
-							data: getRandomData(),
+							data: getRandomData(2),
 						},
 					],
 					{
@@ -398,7 +403,7 @@
 					"#interactive4",
 					[
 						{
-							data: getRandomData(),
+							data: getRandomData(3),
 						},
 					],
 					{
@@ -438,17 +443,13 @@
 				var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
 
 				// clicking the on button too many times speeds up the code because the loop gets interrupted
-				// se puede modificar la funcion para que sea de referencia? tipo this.update() y llamarla desde los interactive_plots
 				function update() {
 					// reworking the update function could be in order?
-					for (var k = 0; k < myCharts.length; k++) {
-						// setData(from data source?) -- i dont know jquery or js
-						myCharts[k].setData([getRandomData()]);
-						// proposition: this.setData(source);
+					for (k = 0; k < myCharts.length; k++) {
+						myCharts[k].setData([getRandomData(k)]);
 
 						// Since the axes don't change, we don't need to call plot.setupGrid()
 						myCharts[k].draw();
-						// proposition: this.draw();
 					}
 
 					if (realtime === "on") {

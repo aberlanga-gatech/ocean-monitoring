@@ -273,7 +273,7 @@
 				myDatas[3] = [];
 
 				//dummy json
-				var xdd = '{ "name": 12 }';
+				var dummyJSON = '{ "name": 12 }';
 
 				// made this function my own so that it can take multiple datas for multiple interactive charts
 				function getRealData(d) {
@@ -285,14 +285,14 @@
 					// Do a random walk
 					while (data.length < totalPoints) {
 						var prev = data.length > 0 ? data[data.length - 1] : 50,
-							y = prev + JSON.parse(xdd).name; // new data
+							y = prev + JSON.parse(dummyJSON).name; // new data
 
 						if (y < 0) {
 							y = 0;
-						} else if (y > 100) {
-							y = 100;
-						}
-
+						} //else if (y > 100) {
+						//y = 100;
+						//}
+						// with real data, maybe the push is not needed? --> updating data already happens outside?
 						data.push(y);
 						myDatas[d] = data;
 					}

@@ -265,13 +265,18 @@
 				// We use an inline data source in the example, usually data would
 				// be fetched from a server
 				var totalPoints = 100;
+				// global with the datas
 				var myDatas = [];
 				myDatas[0] = [];
 				myDatas[1] = [];
 				myDatas[2] = [];
 				myDatas[3] = [];
 
-				function getRandomData(d) {
+				//dummy json
+				var xdd = '{ "name": 12 }';
+
+				// made this function my own so that it can take multiple datas for multiple interactive charts
+				function getRealData(d) {
 					var data = myDatas[d];
 					if (data.length >= 0) {
 						data = data.slice(1);
@@ -280,7 +285,7 @@
 					// Do a random walk
 					while (data.length < totalPoints) {
 						var prev = data.length > 0 ? data[data.length - 1] : 50,
-							y = prev + Math.random() * 10 - 5;
+							y = prev + JSON.parse(xdd).name; // new data
 
 						if (y < 0) {
 							y = 0;
@@ -306,7 +311,7 @@
 					"#interactive1",
 					[
 						{
-							data: getRandomData(0),
+							data: getRealData(0),
 						},
 					],
 					{
@@ -338,7 +343,7 @@
 					"#interactive2",
 					[
 						{
-							data: getRandomData(1),
+							data: getRealData(1),
 						},
 					],
 					{
@@ -370,7 +375,7 @@
 					"#interactive3",
 					[
 						{
-							data: getRandomData(2),
+							data: getRealData(2),
 						},
 					],
 					{
@@ -402,7 +407,7 @@
 					"#interactive4",
 					[
 						{
-							data: getRandomData(3),
+							data: getRealData(3),
 						},
 					],
 					{
@@ -445,7 +450,7 @@
 				function update() {
 					// reworking the update function could be in order?
 					for (k = 0; k < myCharts.length; k++) {
-						myCharts[k].setData([getRandomData(k)]);
+						myCharts[k].setData([getRealData(k)]);
 
 						// Since the axes don't change, we don't need to call plot.setupGrid()
 						myCharts[k].draw();

@@ -523,11 +523,13 @@
   })
 
   var active_navbar_color = null
+  /*
   $('.main-header')[0].classList.forEach(function (className) {
     if (navbar_all_colors.indexOf(className) > -1 && active_navbar_color === null) {
       active_navbar_color = className.replace('navbar-', 'bg-')
     }
   })
+  */
 
   $navbar_variants_colors.find('option.' + active_navbar_color).prop('selected', true)
   $navbar_variants_colors.removeClass().addClass('custom-select mb-3 text-light border-0 ').addClass(active_navbar_color)
@@ -587,12 +589,13 @@
   $container.append($sidebar_dark_variants)
 
   var active_sidebar_dark_color = null
+  /*
   $('.main-sidebar')[0].classList.forEach(function (className) {
     var color = className.replace('sidebar-dark-', 'bg-')
     if (sidebar_colors.indexOf(color) > -1 && active_sidebar_dark_color === null) {
       active_sidebar_dark_color = color
     }
-  })
+  })*/
 
   $sidebar_dark_variants.find('option.' + active_sidebar_dark_color).prop('selected', true)
   $sidebar_dark_variants.removeClass().addClass('custom-select mb-3 text-light border-0 ').addClass(active_sidebar_dark_color)

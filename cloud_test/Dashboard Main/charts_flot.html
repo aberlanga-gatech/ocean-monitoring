@@ -12,7 +12,7 @@
 		/>
 
 		<!-- Theme style -->
-		<link rel="stylesheet" href="../Dashboard Main/dist/css/adminlte.min.css" />
+		<link rel="stylesheet" href="dist/css/adminlte.min.css" />
 	</head>
 	<body>
 		<div class="wrapper">
@@ -241,22 +241,23 @@
 		</div>
 
 		<!-- jQuery -->
-		<script src="../Dashboard Main/plugins/jquery/jquery.min.js"></script>
+		<script src="plugins/jquery/jquery.min.js"></script>
 		<!-- Bootstrap 4 -->
-		<script src="../Dashboard Main/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<!-- AdminLTE App -->
-		<script src="../Dashboard Main/dist/js/adminlte.min.js"></script>
+		<script src="dist/js/adminlte.min.js"></script>
 		<!-- FLOT CHARTS -->
-		<script src="../Dashboard Main/plugins/flot/jquery.flot.js"></script>
+		<script src="plugins/flot/jquery.flot.js"></script>
 		<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
-		<script src="../Dashboard Main/plugins/flot/plugins/jquery.flot.resize.js"></script>
+		<script src="plugins/flot/plugins/jquery.flot.resize.js"></script>
 		<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-		<script src="../Dashboard Main/plugins/flot/plugins/jquery.flot.pie.js"></script>
+		<script src="plugins/flot/plugins/jquery.flot.pie.js"></script>
 		<!-- AdminLTE for demo purposes -->
-		<script src="../Dashboard Main/dist/js/demo.js"></script>
+		<script src="dist/js/demo.js"></script>
 
 		<!-- Modified script for 4 interactive (real time) charts-->
 		<script>
+
 			$(function () {
 				/*
 				 * Flot Interactive Chart
@@ -271,6 +272,7 @@
 				myDatas[1] = [];
 				myDatas[2] = [];
 				myDatas[3] = [];
+				
 
 				//dummy json
 				var dummyJSON = '{ "name": 12 }';
@@ -305,6 +307,7 @@
 
 					return res;
 				}
+
 
 				// "objects" of the plots
 				var interactive_plot1 = $.plot(
@@ -343,7 +346,7 @@
 					"#interactive2",
 					[
 						{
-							data: getRealData(1),
+							data: [[0,15],[1,3]],
 						},
 					],
 					{
@@ -370,7 +373,7 @@
 						},
 					}
 				);
-
+			
 				var interactive_plot3 = $.plot(
 					"#interactive3",
 					[
@@ -463,7 +466,7 @@
 
 				//INITIALIZE REALTIME DATA FETCHING
 				if (realtime === "on") {
-					update();
+					//update();
 					// proposition: call interactive_chart1.update()... etc
 				}
 
@@ -475,6 +478,29 @@
 						realtime = "off";
 					}
 					update();
+				});
+
+
+				//load json data
+				$.get('api.json',function(response) {
+					console.log("Ajax:");
+					console.log(response.temperature);
+
+					var new_data = [];
+					
+					response.temperature.forEach(function(i, v){
+						new_data.push(i[1]);
+					});
+
+					console.log(new_data);
+
+					interactive_plot2.setData([new_data]);
+					interactive_plot2.draw();
+
+
+				}).fail(function(err){
+					console.log("Error!");
+					console.log(err);
 				});
 
 				/*

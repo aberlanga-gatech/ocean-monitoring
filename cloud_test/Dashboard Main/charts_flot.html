@@ -137,7 +137,9 @@
 										</div>
 									</div>
 									<div class="card-body">
-										<div id="interactive2" style="height: 300px"></div>
+										<div id="" style="height: 300px">
+											<canvas id="interactive2"></canvas>
+										</div>
 									</div>
 									<!-- /.card-body-->
 								</div>
@@ -252,69 +254,27 @@
 		<script src="plugins/flot/plugins/jquery.flot.resize.js"></script>
 		<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
 		<script src="plugins/flot/plugins/jquery.flot.pie.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 		<!-- AdminLTE for demo purposes -->
 		<script src="dist/js/demo.js"></script>
 
 		<!-- Modified script for 4 interactive (real time) charts-->
 		<script>
 
-			$(function () {
-				/*
-				 * Flot Interactive Chart
-				 * -----------------------
-				 */
-				// We use an inline data source in the example, usually data would
-				// be fetched from a server
-				var totalPoints = 100;
-				// global with the datas
-				var myDatas = [];
-				myDatas[0] = [];
-				myDatas[1] = [];
-				myDatas[2] = [];
-				myDatas[3] = [];
-				
+			var interactive_plot1;
+			var test_data = [[0,35],[1,10],[2,15],[3,0]];
 
-				//dummy json
-				var dummyJSON = '{ "name": 12 }';
-
-				// made this function my own so that it can take multiple datas for multiple interactive charts
-				function getRealData(d) {
-					var data = myDatas[d];
-					if (data.length >= 0) {
-						data = data.slice(1);
-					}
-
-					// Do a random walk
-					while (data.length < totalPoints) {
-						var prev = data.length > 0 ? data[data.length - 1] : 50,
-							y = prev + JSON.parse(dummyJSON).name; // new data
-
-						if (y < 0) {
-							y = 0;
-						} //else if (y > 100) {
-						//y = 100;
-						//}
-						// with real data, maybe the push is not needed? --> updating data already happens outside?
-						data.push(y);
-						myDatas[d] = data;
-					}
-
-					// Zip the generated y values with the x values
-					var res = [];
-					for (var i = 0; i < data.length; ++i) {
-						res.push([i, data[i]]);
-					}
-
-					return res;
-				}
+			$(document).ready(function(){
 
 
-				// "objects" of the plots
-				var interactive_plot1 = $.plot(
+				//create the chart
+					interactive_plot1 = $.plot(
 					"#interactive1",
 					[
 						{
-							data: getRealData(0),
+							data: test_data,
 						},
 					],
 					{
@@ -332,191 +292,95 @@
 							},
 						},
 						yaxis: {
-							min: 0,
-							max: 100,
+							min : 0,
 							show: true,
 						},
 						xaxis: {
+							min : 0,
+							minTickSize : 1,
 							show: true,
 						},
 					}
 				);
 
-				var interactive_plot2 = $.plot(
-					"#interactive2",
-					[
-						{
-							data: [[0,15],[1,3]],
-						},
-					],
-					{
-						grid: {
-							borderColor: "#f3f3f3",
-							borderWidth: 1,
-							tickColor: "#f3f3f3",
-						},
-						series: {
-							color: "#ffadbc",
-							lines: {
-								lineWidth: 2,
-								show: true,
-								fill: true,
-							},
-						},
-						yaxis: {
-							min: 0,
-							max: 100,
-							show: true,
-						},
-						xaxis: {
-							show: true,
-						},
-					}
-				);
-			
-				var interactive_plot3 = $.plot(
-					"#interactive3",
-					[
-						{
-							data: getRealData(2),
-						},
-					],
-					{
-						grid: {
-							borderColor: "#f3f3f3",
-							borderWidth: 1,
-							tickColor: "#f3f3f3",
-						},
-						series: {
-							color: "#008fbf",
-							lines: {
-								lineWidth: 2,
-								show: true,
-								fill: true,
-							},
-						},
-						yaxis: {
-							min: 0,
-							max: 100,
-							show: true,
-						},
-						xaxis: {
-							show: true,
-						},
-					}
-				);
-
-				var interactive_plot4 = $.plot(
-					"#interactive4",
-					[
-						{
-							data: getRealData(3),
-						},
-					],
-					{
-						grid: {
-							borderColor: "#f3f3f3",
-							borderWidth: 1,
-							tickColor: "#f3f3f3",
-						},
-						series: {
-							color: "#3cffbc",
-							lines: {
-								lineWidth: 2,
-								show: true,
-								fill: true,
-							},
-						},
-						yaxis: {
-							min: 0,
-							max: 100,
-							show: true,
-						},
-						xaxis: {
-							show: true,
-						},
-					}
-				);
-
-				// collection of all 4 chart objects(?)
-				var myCharts = [
-					interactive_plot1,
-					interactive_plot2,
-					interactive_plot3,
-					interactive_plot4,
-				];
-
-				var updateInterval = 500; //Fetch data ever x milliseconds
-				var realtime = "on"; //If == to on then fetch data every x seconds. else stop fetching
-
-				// clicking the on button too many times speeds up the code because the loop gets interrupted
-				function update() {
-					// reworking the update function could be in order?
-					for (k = 0; k < myCharts.length; k++) {
-						myCharts[k].setData([getRealData(k)]);
-
-						// Since the axes don't change, we don't need to call plot.setupGrid()
-						myCharts[k].draw();
+					var chjs_labes = [];
+					var chjs_data = {
+						labels : chjs_labes,
+						datasets : [
+							{
+								label : "Temperature (°C)",
+								borderColor: 'rgb(255, 99, 132)',
+								data : []
+							}
+						]
 					}
 
-					if (realtime === "on") {
-						setTimeout(update, updateInterval);
-					}
-				}
+					//chartsjs
+					var config = {
+					  type: 'line',
+					  data: chjs_data,
+					  options: {
+					    responsive: true,
+					    plugins: {
+					      legend: {
+					        position: 'top',
+					      }
+					    },
+					    scales: {
+					      y: {
+					      	title : {
+					      		display : true,
+					      		text: "°C"
+					      	},
+					        min: -5
+					      }
+					    }
+					  },
+					};
 
-				//INITIALIZE REALTIME DATA FETCHING
-				if (realtime === "on") {
-					//update();
-					// proposition: call interactive_chart1.update()... etc
-				}
+					var myChart = new Chart(
+    					document.getElementById('interactive2'),
+    					config
+  					);
 
-				//REALTIME TOGGLE
-				$("#realtime .btn").click(function () {
-					if ($(this).data("toggle") === "on") {
-						realtime = "on";
-					} else {
-						realtime = "off";
-					}
-					update();
-				});
-
-
-				//load json data
-				$.get('api.json',function(response) {
-					console.log("Ajax:");
-					console.log(response.temperature);
-
-					var new_data = [];
+					//load json data via ajax
 					
-					response.temperature.forEach(function(i, v){
-						new_data.push(i[1]);
-					});
+					setInterval(function() {
 
-					console.log(new_data);
+						$.get('http://localhost:5000/data',function(response) {
 
-					interactive_plot2.setData([new_data]);
-					interactive_plot2.draw();
+							console.log("Ajax:");
+							console.log(response.temperature);
+							//test_data = response.temperature;
+
+							interactive_plot1.setData([response.temperature]);
+							interactive_plot1.setupGrid();
+							interactive_plot1.draw();
+
+							//update charts js
+							var new_labels = [];
+							var new_data = [];
+							response.temperature.forEach(function(val){
+								console.log(val);
+								new_labels.push(val[0]);
+								new_data.push(val[1]);
+							});
+							myChart.data.datasets[0].data = new_data;
+							myChart.data.labels = new_labels;
+							myChart.update();
 
 
-				}).fail(function(err){
-					console.log("Error!");
-					console.log(err);
-				});
 
-				/*
-				 * Custom Label formatter
-				 * ----------------------
-				 */
-				function labelFormatter(label, series) {
-					return (
-						'<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">' +
-						label +
-						"<br>" +
-						Math.round(series.percent) +
-						"%</div>"
-					);
-				}
+						}).fail(function(err){
+							console.log("Error!");
+							console.log(err);
+						});
+
+					}, 2000);
+
+
 			});
+
 		</script>
 	</body>
 </html>

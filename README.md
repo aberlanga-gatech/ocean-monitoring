@@ -29,6 +29,8 @@ Topic: om/telemetry
 
 Host: our beloved AWS server :)
 
+The payload data is described in [this JSON file](https://github.com/aberlanga-gatech/ocean-monitoring/blob/main/dataframe_example.json)
+
 ## TODO
 
 

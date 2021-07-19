@@ -23,6 +23,10 @@ ESP8266 -- Main Folder
       ->> contains the dashboard html to control and display the random values
       ->> functionality to start/stop the data stream
 
+## MQTT Connection
+
+Topic: om/telemetry
+Host: our beloved AWS server :)
 
 ## TODO
 

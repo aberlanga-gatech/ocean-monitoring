@@ -26,6 +26,7 @@ ESP8266 -- Main Folder
 ## MQTT Connection
 
 Topic: om/telemetry
+
 Host: our beloved AWS server :)
 
 ## TODO

@@ -437,45 +437,49 @@
 					},
 				};
 
-				var myChart = new Chart(
+				var myChart1 = new Chart(
 					document.getElementById("interactive1"),
 					config1
 				);
-				var myChart = new Chart(
+				var myChart2 = new Chart(
 					document.getElementById("interactive2"),
 					config2
 				);
-				var myChart = new Chart(
+				var myChart3 = new Chart(
 					document.getElementById("interactive3"),
 					config3
 				);
-				var myChart = new Chart(
+				var myChart4 = new Chart(
 					document.getElementById("interactive4"),
 					config4
 				);
+
+				var charts = [myChart1, myChart2, myChart3, myChart4];
 
 				//load json data via ajax
 
 				setInterval(function () {
 					$.get("http://localhost:5000/data", function (response) {
 						console.log("Ajax:");
-						console.log(response.temperature);
-						console.log(response.pressure);
-						console.log(response.waterPH);
-						console.log(response.oxygen);
+						var measurements = [];
+						measurements.push(response.temperature);
+						measurements.push(response.pressure);
+						measurements.push(response.waterPH);
+						measurements.push(response.oxygen);
 						//test_data = response.temperature;
 
-						//update charts js
-						var new_labels = [];
-						var new_data = [];
-						response.temperature.forEach(function (val) {
-							console.log(val);
-							new_labels.push(val[0]);
-							new_data.push(val[1]);
+						charts.forEach(function (theChart, idx) {
+							//update charts js
+							var new_labels = [];
+							var new_data = [];
+							measurements[idx].forEach(function (val) {
+								new_labels.push(val[0]);
+								new_data.push(val[1]);
+							});
+							theChart.data.datasets[0].data = new_data;
+							theChart.data.labels = new_labels;
+							theChart.update();
 						});
-						myChart.data.datasets[0].data = new_data;
-						myChart.data.labels = new_labels;
-						myChart.update();
 					}).fail(function (err) {
 						console.log("Error!");
 						console.log(err);

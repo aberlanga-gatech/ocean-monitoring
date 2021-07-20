@@ -95,7 +95,7 @@
 										</div>
 									</div>
 									<div class="card-body">
-										<div id="interactive1" style="height: 300px"></div>
+										<canvas id="interactive1" style="height: 300px"></canvas>
 									</div>
 									<!-- /.card-body-->
 								</div>
@@ -183,7 +183,7 @@
 										</div>
 									</div>
 									<div class="card-body">
-										<div id="interactive3" style="height: 300px"></div>
+										<canvas id="interactive3" style="height: 300px"></canvas>
 									</div>
 									<!-- /.card-body-->
 								</div>
@@ -225,7 +225,7 @@
 										</div>
 									</div>
 									<div class="card-body">
-										<div id="interactive4" style="height: 300px"></div>
+										<canvas id="interactive4" style="height: 300px"></canvas>
 									</div>
 									<!-- /.card-body-->
 								</div>
@@ -262,15 +262,17 @@
 
 		<!-- Modified script for 4 interactive (real time) charts-->
 		<script>
-
 			var interactive_plot1;
-			var test_data = [[0,35],[1,10],[2,15],[3,0]];
+			var test_data = [
+				[0, 35],
+				[1, 10],
+				[2, 15],
+				[3, 0],
+			];
 
-			$(document).ready(function(){
-
-
+			$(document).ready(function () {
 				//create the chart
-					interactive_plot1 = $.plot(
+				interactive_plot1 = $.plot(
 					"#interactive1",
 					[
 						{
@@ -292,95 +294,195 @@
 							},
 						},
 						yaxis: {
-							min : 0,
+							min: 0,
 							show: true,
 						},
 						xaxis: {
-							min : 0,
-							minTickSize : 1,
+							min: 0,
+							minTickSize: 1,
 							show: true,
 						},
 					}
 				);
 
-					var chjs_labes = [];
-					var chjs_data = {
-						labels : chjs_labes,
-						datasets : [
-							{
-								label : "Temperature (°C)",
-								borderColor: 'rgb(255, 99, 132)',
-								data : []
-							}
-						]
-					}
+				var chjs_label_1 = [];
+				var chjs_label_2 = [];
+				var chjs_label_3 = [];
+				var chjs_label_4 = [];
 
-					//chartsjs
-					var config = {
-					  type: 'line',
-					  data: chjs_data,
-					  options: {
-					    responsive: true,
-					    plugins: {
-					      legend: {
-					        position: 'top',
-					      }
-					    },
-					    scales: {
-					      y: {
-					      	title : {
-					      		display : true,
-					      		text: "°C"
-					      	},
-					        min: -5
-					      }
-					    }
-					  },
-					};
+				var chjs_data_1 = {
+					labels: chjs_label_1,
+					datasets: [
+						{
+							label: "Pressure (atm)",
+							borderColor: "rgb(255, 99, 132)",
+							data: [],
+						},
+					],
+				};
+				var chjs_data_2 = {
+					labels: chjs_label_2,
+					datasets: [
+						{
+							label: "Water pH",
+							borderColor: "rgb(255, 99, 132)",
+							data: [],
+						},
+					],
+				};
+				var chjs_data_3 = {
+					labels: chjs_label_3,
+					datasets: [
+						{
+							label: "Temperature (°C)",
+							borderColor: "rgb(255, 99, 132)",
+							data: [],
+						},
+					],
+				};
+				var chjs_data_4 = {
+					labels: chjs_label_4,
+					datasets: [
+						{
+							label: "Temperature (°C)",
+							borderColor: "rgb(255, 99, 132)",
+							data: [],
+						},
+					],
+				};
 
-					var myChart = new Chart(
-    					document.getElementById('interactive2'),
-    					config
-  					);
+				//chartsjs
+				var config1 = {
+					type: "line",
+					data: chjs_data_1,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								position: "top",
+							},
+						},
+						scales: {
+							y: {
+								title: {
+									display: true,
+									text: "°C",
+								},
+								min: -5,
+							},
+						},
+					},
+				};
+				var config2 = {
+					type: "line",
+					data: chjs_data_2,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								position: "top",
+							},
+						},
+						scales: {
+							y: {
+								title: {
+									display: true,
+									text: "°C",
+								},
+								min: -5,
+							},
+						},
+					},
+				};
+				var config3 = {
+					type: "line",
+					data: chjs_data_3,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								position: "top",
+							},
+						},
+						scales: {
+							y: {
+								title: {
+									display: true,
+									text: "°C",
+								},
+								min: -5,
+							},
+						},
+					},
+				};
+				var config4 = {
+					type: "line",
+					data: chjs_data_4,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								position: "top",
+							},
+						},
+						scales: {
+							y: {
+								title: {
+									display: true,
+									text: "°C",
+								},
+								min: -5,
+							},
+						},
+					},
+				};
 
-					//load json data via ajax
-					
-					setInterval(function() {
+				var myChart = new Chart(
+					document.getElementById("interactive1"),
+					config1
+				);
+				var myChart = new Chart(
+					document.getElementById("interactive2"),
+					config2
+				);
+				var myChart = new Chart(
+					document.getElementById("interactive3"),
+					config3
+				);
+				var myChart = new Chart(
+					document.getElementById("interactive4"),
+					config4
+				);
 
-						$.get('http://localhost:5000/data',function(response) {
+				//load json data via ajax
 
-							console.log("Ajax:");
-							console.log(response.temperature);
-							//test_data = response.temperature;
+				setInterval(function () {
+					$.get("http://localhost:5000/data", function (response) {
+						console.log("Ajax:");
+						console.log(response.temperature);
+						//test_data = response.temperature;
 
-							interactive_plot1.setData([response.temperature]);
-							interactive_plot1.setupGrid();
-							interactive_plot1.draw();
+						interactive_plot1.setData([response.temperature]);
+						interactive_plot1.setupGrid();
+						interactive_plot1.draw();
 
-							//update charts js
-							var new_labels = [];
-							var new_data = [];
-							response.temperature.forEach(function(val){
-								console.log(val);
-								new_labels.push(val[0]);
-								new_data.push(val[1]);
-							});
-							myChart.data.datasets[0].data = new_data;
-							myChart.data.labels = new_labels;
-							myChart.update();
-
-
-
-						}).fail(function(err){
-							console.log("Error!");
-							console.log(err);
+						//update charts js
+						var new_labels = [];
+						var new_data = [];
+						response.temperature.forEach(function (val) {
+							console.log(val);
+							new_labels.push(val[0]);
+							new_data.push(val[1]);
 						});
-
-					}, 2000);
-
-
+						myChart.data.datasets[0].data = new_data;
+						myChart.data.labels = new_labels;
+						myChart.update();
+					}).fail(function (err) {
+						console.log("Error!");
+						console.log(err);
+					});
+				}, 2000);
 			});
-
 		</script>
 	</body>
 </html>

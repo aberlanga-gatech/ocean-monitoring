@@ -344,7 +344,7 @@
 					labels: chjs_label_4,
 					datasets: [
 						{
-							label: "Temperature (°C)",
+							label: "Oxygen Level (ppm)",
 							borderColor: "rgb(255, 99, 132)",
 							data: [],
 						},
@@ -366,9 +366,9 @@
 							y: {
 								title: {
 									display: true,
-									text: "°C",
+									text: "atm",
 								},
-								min: -5,
+								min: 0,
 							},
 						},
 					},
@@ -387,9 +387,9 @@
 							y: {
 								title: {
 									display: true,
-									text: "°C",
+									text: "pH",
 								},
-								min: -5,
+								min: 0,
 							},
 						},
 					},
@@ -429,9 +429,9 @@
 							y: {
 								title: {
 									display: true,
-									text: "°C",
+									text: "ppm",
 								},
-								min: -5,
+								min: 0,
 							},
 						},
 					},
@@ -460,11 +460,10 @@
 					$.get("http://localhost:5000/data", function (response) {
 						console.log("Ajax:");
 						console.log(response.temperature);
+						console.log(response.pressure);
+						console.log(response.waterPH);
+						console.log(response.oxygen);
 						//test_data = response.temperature;
-
-						interactive_plot1.setData([response.temperature]);
-						interactive_plot1.setupGrid();
-						interactive_plot1.draw();
 
 						//update charts js
 						var new_labels = [];

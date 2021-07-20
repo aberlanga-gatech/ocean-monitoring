@@ -13,8 +13,10 @@ Repository for all the files to be used in the OceanMonitoring MQTT data transfe
 
 ## FOLDERS
 
-cloud_test --> main folder
-SEE README
+cloud_test     --> main internet stuff/dashboard folder
+raspberry-pi   --> main data uplink and telemetry folder
+ESP8266        --> learning materials (not used)
+mqtt_attempt_1 --> obsolete attempt at data uplink and telemetry (not used)
 
 ## MQTT Connection
 

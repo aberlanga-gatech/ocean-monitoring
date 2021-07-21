@@ -60,39 +60,13 @@
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-md-6">
-								<!-- interactive chart -->
+								<!-- interactive chart 1-->
 								<div class="card card-primary card-outline">
 									<div class="card-header">
 										<h3 class="card-title">
 											<i class="far fa-chart-bar"></i>
 											Pressure Probe Chart
 										</h3>
-
-										<div class="card-tools">
-											<!--
-											Real time
-											<div
-												class="btn-group"
-												id="realtime"
-												data-toggle="btn-toggle"
-											>
-												<button
-													type="button"
-													class="btn btn-default btn-sm active"
-													data-toggle="on"
-												>
-													On
-												</button>
-												<button
-													type="button"
-													class="btn btn-default btn-sm"
-													data-toggle="off"
-												>
-													Off
-												</button>
-											</div>
-										-->
-										</div>
 									</div>
 									<div class="card-body">
 										<canvas id="interactive1" style="height: 300px"></canvas>
@@ -101,45 +75,16 @@
 								</div>
 								<!-- /.card -->
 
-								<!-- Area chart -->
-								<!-- interactive chart -->
+								<!-- interactive chart 2 -->
 								<div class="card card-primary card-outline">
 									<div class="card-header">
 										<h3 class="card-title">
 											<i class="far fa-chart-bar"></i>
-											Water PH Chart
+											Temperature Chart
 										</h3>
-
-										<div class="card-tools">
-											<!--
-											Real time
-											<div
-												class="btn-group"
-												id="realtime"
-												data-toggle="btn-toggle"
-											>
-												<button
-													type="button"
-													class="btn btn-default btn-sm active"
-													data-toggle="on"
-												>
-													On
-												</button>
-												<button
-													type="button"
-													class="btn btn-default btn-sm"
-													data-toggle="off"
-												>
-													Off
-												</button>
-											</div>
-										-->
-										</div>
 									</div>
 									<div class="card-body">
-										<div id="" style="height: 300px">
-											<canvas id="interactive2"></canvas>
-										</div>
+										<canvas id="interactive2" style="height: 300px"></canvas>
 									</div>
 									<!-- /.card-body-->
 								</div>
@@ -153,34 +98,8 @@
 									<div class="card-header">
 										<h3 class="card-title">
 											<i class="far fa-chart-bar"></i>
-											Temperature Probe Chart
+											Water pH Chart
 										</h3>
-
-										<div class="card-tools">
-											<!--
-											Real time
-											<div
-												class="btn-group"
-												id="realtime"
-												data-toggle="btn-toggle"
-											>
-												<button
-													type="button"
-													class="btn btn-default btn-sm active"
-													data-toggle="on"
-												>
-													On
-												</button>
-												<button
-													type="button"
-													class="btn btn-default btn-sm"
-													data-toggle="off"
-												>
-													Off
-												</button>
-											</div>
-										-->
-										</div>
 									</div>
 									<div class="card-body">
 										<canvas id="interactive3" style="height: 300px"></canvas>
@@ -195,34 +114,8 @@
 									<div class="card-header">
 										<h3 class="card-title">
 											<i class="far fa-chart-bar"></i>
-											Oxygen Level
+											Oxygen Level Chart
 										</h3>
-
-										<div class="card-tools">
-											<!--
-											Real time
-											<div
-												class="btn-group"
-												id="realtime"
-												data-toggle="btn-toggle"
-											>
-												<button
-													type="button"
-													class="btn btn-default btn-sm active"
-													data-toggle="on"
-												>
-													On
-												</button>
-												<button
-													type="button"
-													class="btn btn-default btn-sm"
-													data-toggle="off"
-												>
-													Off
-												</button>
-											</div>
-										-->
-										</div>
 									</div>
 									<div class="card-body">
 										<canvas id="interactive4" style="height: 300px"></canvas>
@@ -262,54 +155,14 @@
 
 		<!-- Modified script for 4 interactive (real time) charts-->
 		<script>
-			var interactive_plot1;
-			var test_data = [
-				[0, 35],
-				[1, 10],
-				[2, 15],
-				[3, 0],
-			];
-
 			$(document).ready(function () {
-				//create the chart
-				interactive_plot1 = $.plot(
-					"#interactive1",
-					[
-						{
-							data: test_data,
-						},
-					],
-					{
-						grid: {
-							borderColor: "#f3f3f3",
-							borderWidth: 1,
-							tickColor: "#f3f3f3",
-						},
-						series: {
-							color: "#3aadbc",
-							lines: {
-								lineWidth: 2,
-								show: true,
-								fill: true,
-							},
-						},
-						yaxis: {
-							min: 0,
-							show: true,
-						},
-						xaxis: {
-							min: 0,
-							minTickSize: 1,
-							show: true,
-						},
-					}
-				);
+				//initialize label containers
+				var chjs_label_1 = []; // pressure
+				var chjs_label_2 = []; // temperature
+				var chjs_label_3 = []; // ph
+				var chjs_label_4 = []; // oxygen
 
-				var chjs_label_1 = [];
-				var chjs_label_2 = [];
-				var chjs_label_3 = [];
-				var chjs_label_4 = [];
-
+				// initialize chart object data
 				var chjs_data_1 = {
 					labels: chjs_label_1,
 					datasets: [
@@ -324,7 +177,7 @@
 					labels: chjs_label_2,
 					datasets: [
 						{
-							label: "Water pH",
+							label: "Temperature",
 							borderColor: "rgb(255, 99, 132)",
 							data: [],
 						},
@@ -334,7 +187,7 @@
 					labels: chjs_label_3,
 					datasets: [
 						{
-							label: "Temperature (°C)",
+							label: "Water pH",
 							borderColor: "rgb(255, 99, 132)",
 							data: [],
 						},
@@ -351,7 +204,7 @@
 					],
 				};
 
-				//chartsjs
+				//chartsjs configurations
 				var config1 = {
 					type: "line",
 					data: chjs_data_1,
@@ -437,37 +290,44 @@
 					},
 				};
 
+				// chart instantiations
 				var myChart1 = new Chart(
+					// pressure
 					document.getElementById("interactive1"),
 					config1
 				);
 				var myChart2 = new Chart(
+					// temperature
 					document.getElementById("interactive2"),
 					config2
 				);
 				var myChart3 = new Chart(
+					// ph
 					document.getElementById("interactive3"),
 					config3
 				);
 				var myChart4 = new Chart(
+					// oxygen
 					document.getElementById("interactive4"),
 					config4
 				);
 
+				// array initialization
 				var charts = [myChart1, myChart2, myChart3, myChart4];
 
 				//load json data via ajax
-
 				setInterval(function () {
 					$.get("http://localhost:5000/data", function (response) {
 						console.log("Ajax:");
 						var measurements = [];
+						// THIS ORDER IS HOLY
 						measurements.push(response.pressure);
 						measurements.push(response.temperature);
 						measurements.push(response.waterPH);
 						measurements.push(response.oxygen);
 						//test_data = response.temperature;
 
+						// iterate through chart array
 						charts.forEach(function (theChart, idx) {
 							//update charts js
 							var new_labels = [];

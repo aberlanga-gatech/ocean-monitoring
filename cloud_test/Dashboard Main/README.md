@@ -20,7 +20,6 @@ Layout and bootstrap from [AdminLTE 3](https://adminlte.io/themes/v3/pages/chart
 ### /plugins, /dist
 
 - contains only the needed plugins and css/js for functionality
-- MAYBE COMPLETELY OBSOLETE?
 
 ### rest of the files
 
@@ -31,15 +30,16 @@ Layout and bootstrap from [AdminLTE 3](https://adminlte.io/themes/v3/pages/chart
 
 #### > eliminate redundancy with the flot plugins
 
-- erase everything that is not charts.js or bootstrap related \* some plugins have been taken care of, not all
+- erase everything that is not charts.js or bootstrap related
+  - some plugins have been taken care of, not all
 
 #### > refactor everything that will stay final
 
 - variable names, array names, file names
 - plugins, comments, documentation things
 
-#### > fix / season visual elements to taste
+#### > fix/season visual elements to taste
 
-- ~~small discrepancy in <canvas> element sizes (the charts)~~ _DONE_
+- ~~small discrepancy in canvas element sizes (the charts)~~ _DONE_
 - ~~make sure the divs and layout is ok~~ _DONE_
 - make sure the code is aesthetically pleasing

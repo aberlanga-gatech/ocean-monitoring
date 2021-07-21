@@ -143,17 +143,15 @@
 		<script src="dist/js/adminlte.min.js"></script>
 		<!-- FLOT CHARTS -->
 		<script src="plugins/flot/jquery.flot.js"></script>
-		<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+		<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized (necessary?) -->
 		<script src="plugins/flot/plugins/jquery.flot.resize.js"></script>
-		<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
-		<script src="plugins/flot/plugins/jquery.flot.pie.js"></script>
-
+		<!--Chart.js (definetely important!!)-->
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 		<!-- AdminLTE for demo purposes -->
 		<script src="dist/js/demo.js"></script>
 
-		<!-- Modified script for 4 interactive (real time) charts-->
+		<!-- Script for 4 interactive (real time) charts-->
 		<script>
 			$(document).ready(function () {
 				//initialize label containers
@@ -325,7 +323,7 @@
 						measurements.push(response.temperature);
 						measurements.push(response.waterPH);
 						measurements.push(response.oxygen);
-						//test_data = response.temperature;
+						// measurements[] looks like [[pL, pD], [tL, tD], [phLabel, phData], [o2L, o2D]]
 
 						// iterate through chart array
 						charts.forEach(function (theChart, idx) {
@@ -333,6 +331,7 @@
 							var new_labels = [];
 							var new_data = [];
 							measurements[idx].forEach(function (val) {
+								// val is [label, data] because json has that order
 								new_labels.push(val[0]);
 								new_data.push(val[1]);
 							});
@@ -344,7 +343,7 @@
 						console.log("Error!");
 						console.log(err);
 					});
-				}, 2000);
+				}, 2000); // 2 second (2k ms) interval
 			});
 		</script>
 	</body>

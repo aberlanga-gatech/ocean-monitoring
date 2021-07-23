@@ -41,7 +41,7 @@ def data():
 	temperature = []
 	pressure = []
 	ph = []
-	oxigen = []
+	oxygen = []
 	indexer = 0
 	
 	for reg in telemetry_cursor:

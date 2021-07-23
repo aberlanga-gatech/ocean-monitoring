@@ -39,7 +39,7 @@ def on_message(client, userdata, msg):
     print("La temperatura hoy:", payload['temperature'])
 
     #save to db
-    dbrow = (payload['device_id'], payload['temperature'], payload['pressure'], payload['ph'], payload['o2'],payload['lat'],payload['lng'])
+    dbrow = (payload['device_id'], payload['temperature'], payload['pressure'], payload['ph'], payload['oxygen'],payload['lat'],payload['lng'])
     cur_insert.execute("INSERT INTO telemetry(time,device_id,temperature,pressure,ph,o2,lat,lng) VALUES (NOW(),%s,%s,%s,%s,%s,%s,%s)", dbrow)
     conn.commit()
 

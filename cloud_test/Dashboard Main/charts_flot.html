@@ -315,13 +315,13 @@
 
 				//load json data via ajax
 				setInterval(function () {
-					$.get("http://localhost:5000/data", function (response) {
+					$.get("http://52.33.172.184/data", function (response) {
 						console.log("Ajax:");
 						var measurements = [];
 						// THIS ORDER IS HOLY
 						measurements.push(response.pressure);
 						measurements.push(response.temperature);
-						measurements.push(response.waterPH);
+						measurements.push(response.ph);
 						measurements.push(response.oxygen);
 						// measurements[] looks like [[pL, pD], [tL, tD], [phLabel, phData], [o2L, o2D]]
 

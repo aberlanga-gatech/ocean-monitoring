@@ -53,7 +53,7 @@ def data():
 
 
 	data = {
-		"temperature" : values.sort(key=get_idx, reverse=True),
+		"temperature" : temperature.sort(key=get_idx, reverse=True),
 		"pressure" : pressure.sort(key=get_idx, reverse=True),
 		"ph" : ph.sort(key=get_idx, reverse=True),
 		"oxigen" : oxigen.sort(key=get_idx, reverse=True),

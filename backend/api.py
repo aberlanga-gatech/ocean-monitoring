@@ -61,7 +61,7 @@ def data():
 		"temperature" : temperature,
 		"pressure" : pressure,
 		"ph" : ph,
-		"oxygen" : oxigen,
+		"oxygen" : oxygen,
 	}
 
 	return data

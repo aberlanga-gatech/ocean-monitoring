@@ -7,6 +7,9 @@ import configparser
 import random
 
 
+def get_idx(elem):
+	return elem[0]
+
 #load configuration
 print("Loading config...")
 config = configparser.ConfigParser(interpolation=None)
@@ -39,19 +42,21 @@ def data():
 	pressure = []
 	ph = []
 	oxigen = []
-
+	indexer = 0
+	
 	for reg in telemetry_cursor:
-		temperature.append([0,reg["temperature"]])
-		pressure.append([0,reg["pressure"]])
-		ph.append([0,reg["ph"]])
-		oxigen.append([0,reg["o2"]])
+		temperature.append([indexer,reg["temperature"]])
+		pressure.append([indexer,reg["pressure"]])
+		ph.append([indexer,reg["ph"]])
+		oxigen.append([indexer ,reg["o2"]])
+		indexer = indexer + 1
 
 
 	data = {
-		"temperature" : values,
-		"pressure" : pressure,
-		"ph" : ph,
-		"oxigen" : oxigen,
+		"temperature" : values.sort(key=get_idx, reverse=True),
+		"pressure" : pressure.sort(key=get_idx, reverse=True),
+		"ph" : ph.sort(key=get_idx, reverse=True),
+		"oxigen" : oxigen.sort(key=get_idx, reverse=True),
 	}
 
 	return data

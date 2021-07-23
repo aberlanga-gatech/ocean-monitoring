@@ -48,13 +48,13 @@ def data():
 		temperature.append([indexer,reg["temperature"]])
 		pressure.append([indexer,reg["pressure"]])
 		ph.append([indexer,reg["ph"]])
-		oxigen.append([indexer ,reg["o2"]])
+		oxygen.append([indexer ,reg["o2"]])
 		indexer = indexer + 1
 
 	temperature.sort(key=get_idx, reverse=True)
 	pressure.sort(key=get_idx, reverse=True)
 	ph.sort(key=get_idx, reverse=True)
-	oxigen.sort(key=get_idx, reverse=True)
+	oxygen.sort(key=get_idx, reverse=True)
 
 
 	data = {

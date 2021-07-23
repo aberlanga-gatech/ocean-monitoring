@@ -13,15 +13,10 @@ Repository for all the files to be used in the OceanMonitoring MQTT data transfe
 
 ## FOLDERS
 
-ESP8266 -- Main Folder
-* intro_files -- notes on how NodeMCU works.
-* concept_files -- sample proof of concept files for MQTT system.
-  * third_file -- simple MQTT protocol set up with a non-existent placeholder server.
-  * fourth_file -- concept MQTT protocol that uses AdaFruit DHT library to send temperature readings via MQTT.
-* cloud_test -- first stable prototype files
-  * contains the rng_sender file which sends random values to the broker
-  * contains the dashboard html to control and display the random values
-  * functionality to start/stop the data stream
+cloud_test     --> main internet stuff/dashboard folder
+raspberry-pi   --> main data uplink and telemetry folder
+ESP8266        --> learning materials (not used)
+mqtt_attempt_1 --> obsolete attempt at data uplink and telemetry (not used)
 
 ## MQTT Connection
 

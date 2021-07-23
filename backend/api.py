@@ -51,12 +51,17 @@ def data():
 		oxigen.append([indexer ,reg["o2"]])
 		indexer = indexer + 1
 
+	temperature.sort(key=get_idx, reverse=True)
+	pressure.sort(key=get_idx, reverse=True)
+	ph.sort(key=get_idx, reverse=True)
+	oxigen.sort(key=get_idx, reverse=True)
+
 
 	data = {
-		"temperature" : temperature.sort(key=get_idx, reverse=True),
-		"pressure" : pressure.sort(key=get_idx, reverse=True),
-		"ph" : ph.sort(key=get_idx, reverse=True),
-		"oxigen" : oxigen.sort(key=get_idx, reverse=True),
+		"temperature" : temperature,
+		"pressure" : pressure,
+		"ph" : ph,
+		"oxigen" : oxigen,
 	}
 
 	return data
